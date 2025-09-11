@@ -295,7 +295,15 @@ namespace JumpSelector.Plugin
             }
             if (!jd.Enabled)
             {
-                text = "[Off] ";
+                if (jd.StoredPowerRatio < 1f)
+                {
+                    float num = jd.StoredPowerRatio * 100f;
+                    text = $"[Off {num:N1}%] ";
+                }
+                else
+                {
+                    text = "[Off] ";
+                }
                 item = Color.Red;
             }
             if (jd.SlimBlock.IsDestroyed)
