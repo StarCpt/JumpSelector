@@ -6,6 +6,7 @@ using Sandbox.Game.Entities;
 using Sandbox.Game.GameSystems;
 using Sandbox.Game.World;
 using Sandbox.Graphics.GUI;
+using Sandbox.ModAPI;
 using SpaceEngineers.Game.ModAPI;
 using VRage;
 using VRage.Audio;
@@ -291,12 +292,28 @@ namespace JumpSelector.Plugin
             if (jd.StoredPowerRatio < 1.0)
             {
                 float num = jd.StoredPowerRatio * 100f;
-                text = string.Format("[Charging {0:N1}%] ", num);
-                item = Color.Yellow;
+                if (!((IMyJumpDrive)jd).Recharge)
+                {
+                    text = string.Format("[Not Charging {0:N1}%] ", num);
+                    item = Color.Orange;
+                }
+                else
+                {
+                    text = string.Format("[Charging {0:N1}%] ", num);
+                    item = Color.Yellow;
+                }
             }
             if (!jd.Enabled)
             {
-                text = "[Off] ";
+                if (jd.StoredPowerRatio < 1f)
+                {
+                    float num = jd.StoredPowerRatio * 100f;
+                    text = $"[Off {num:N1}%] ";
+                }
+                else
+                {
+                    text = "[Off] ";
+                }
                 item = Color.Red;
             }
             if (jd.SlimBlock.IsDestroyed)
