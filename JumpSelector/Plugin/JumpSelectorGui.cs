@@ -39,6 +39,7 @@ namespace JumpSelector.Plugin
                     charging.Add(myJumpDrive);
                 }
             }
+            JumpDrives.SortNoAlloc(CompareJumpDriveByCustomName);
             RecreateControls(true);
         }
 
@@ -378,6 +379,11 @@ namespace JumpSelector.Plugin
         private void DistanceTextChanged(MyGuiControlTextbox obj)
         {
             radioButtonGroup.SelectByKey(1);
+        }
+
+        private static int CompareJumpDriveByCustomName(MyJumpDrive a, MyJumpDrive b)
+        {
+            return string.Compare(a.CustomName.ToString(), b.CustomName.ToString());
         }
 
         private MyGuiControlButton cancelButton;
