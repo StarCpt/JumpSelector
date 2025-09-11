@@ -135,6 +135,7 @@ namespace JumpSelector.Plugin
             gpsCombobox.FocusChanged += SelectGPSOption;
             searchTextbox.TextChanged += FilterGpsList;
             searchTextbox.FocusChanged += SearchFocusChanged;
+            searchTextbox.EnterPressed += _ => JumpToGPS();
         }
 
         public override void HandleUnhandledInput(bool receivedFocusInThisUpdate)
